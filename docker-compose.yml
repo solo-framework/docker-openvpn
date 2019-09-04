@@ -1,0 +1,25 @@
+version: '2'
+services:
+  openvpn:
+    cap_add:
+     - NET_ADMIN
+    image: kylemanna/openvpn
+    container_name: openvpn
+    ports:
+     - "43500:1194/udp"
+    restart: unless-stopped
+    volumes:
+     - ./openvpn-data/conf:/etc/openvpn
+    environment:
+     OVPN_CIPHER: AES-256-CBC
+     OVPN_DNS: 0
+     OVPN_ROUTES: 0
+     OVPN_SERVER: 10.250.0.0/24
+     OVPN_COMP_LZO: 1 
+     OVPN_DEFROUTE: 0
+    # OVPN_PUSH: 172.31.0.0 255.255.0.0
+
+
+#
+# see https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md
+#
